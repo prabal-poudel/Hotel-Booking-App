@@ -1,6 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { useClerk, useUser, UserButton } from "@clerk/react";
+
+const BookIcon = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" />
+    </svg>
+);
 
 const Navbar = () => {
     const navLinks = [
@@ -13,6 +20,10 @@ const Navbar = () => {
 
     const [isScrolled, setIsScrolled] = React.useState(false);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const {openSignIn} = useClerk()
+    const {user} = useUser()
+    const navigate = useNavigate()
+    const location = useLocation()
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -28,7 +39,7 @@ const Navbar = () => {
 
                 {/* Logo */}
                 <Link to="/">
-                    <img src={assets.logo} alt="logo" className={`h-9 $ {isScrolled && "invert opacity-80}`} />
+                    <img src={assets.logo} alt="logo" className={`h-9 ${isScrolled && "invert opacity-80"}`} />
                 </Link>
 
                 {/* Desktop Nav */}
@@ -47,8 +58,31 @@ const Navbar = () => {
                 {/* Desktop Right */}
                 <div className="hidden md:flex items-center gap-4">
                     <img src={assets.searchIcon} alt="search" className={`${isScrolled && 'invert'} h-7 transition-all duration-500`} />
-                    <button className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 ${isScrolled ? "text-white bg-black" : "bg-white text-black"}`}>
+
+                {user ? (
+                    <UserButton>
+                        <UserButton.MenuItems>
+                            <UserButton.Action
+                                label="My Bookings"
+                                labelIcon={<BookIcon />}
+                                onClick={() => navigate('/my-bookings')}
+                            />
+                        </UserButton.MenuItems>
+                    </UserButton>
+                ) : (
+                    <button
+                        onClick={() => openSignIn()}
+                        className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 ${isScrolled ? "text-white bg-black" : "bg-white text-black"}`}
+                    >
                         Login
+                    </button>
+                )}
+
+                    {/* <button onClick={openSignIn} className={`px-8 py-2.5 rounded-full ml-4 transition-all duration-500 ${isScrolled ? "text-white bg-black" : "bg-white text-black"}`}>
+                        Login
+                    </button> */}
+                    <button onClick={openSignIn}>
+                        
                     </button>
                 </div>
 
@@ -73,7 +107,7 @@ const Navbar = () => {
                         Dashboard
                     </button>
 
-                    <button className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500">
+                    <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500">
                         Login
                     </button>
                 </div>
