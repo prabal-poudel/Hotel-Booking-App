@@ -25,7 +25,7 @@ const Navbar = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    React.useEffect(() => {
+    React.useEffect(() => {  // 1:19:00 ki tyo useeffect wala halna manlagyo vanye.
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
         };
