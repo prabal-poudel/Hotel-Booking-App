@@ -4,9 +4,9 @@ import logo from "../assets/logo.svg";
 
 const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Hotel", path: "/rooms" },
-    { name: "Experiences", path: "/experiences" },
-    { name: "About", path: "/about" },
+    { name: "Hotel Search", path: "/hotelsearch" },
+    { name: "My Trips", path: "/mytrips" },
+    { name: "Dashboard", path: "/dashboard" },
 ];
 
 const SearchIcon = () => (
