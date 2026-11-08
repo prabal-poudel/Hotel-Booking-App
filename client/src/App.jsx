@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import Searchhotel from './pages/Searchhotels'
 import Mytrips from './pages/Mytrips'
 import Dashboard from './pages/Dashboard'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 const App = () => {
 
@@ -19,7 +21,10 @@ const App = () => {
           <Route path='/' element={<Home/>} />
           <Route path='/hotelsearch' element={<Searchhotel />}/>
           <Route path='/mytrips' element={<Mytrips />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
           <Route path='/dashboard' element={<Dashboard />}/>
+          <Route path='/login' element={<Login />} />
         </Routes>
       </div>
       <Footer />

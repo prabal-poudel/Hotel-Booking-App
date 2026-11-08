@@ -1,12 +1,14 @@
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Hotel Search", path: "/hotelsearch" },
-    { name: "My Trips", path: "/mytrips" },
-    { name: "Dashboard", path: "/dashboard" },
+    { name: "Hotel Search", path: "/hotelsearch",},
+    // { name: "My Trips", path: "/mytrips" },
+    // { name: "Dashboard", path: "/dashboard" },
 ];
 
 const SearchIcon = () => (
@@ -38,6 +40,32 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = React.useState(false);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+    const [user, setUser] = useState(null);
+
+    // navbar load check localstorage
+    useEffect(() => {
+        const storeduser = localStorage.getItem('user');
+        setUser(storeduser ? JSON.parse(storeduser) : null);
+    }, [location]);
+
+    // logout function 
+    const handlelogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        alert('You are loged out!');
+        navigate('/login');
+    };
+
+    // to handle if the user checks my trips without login
+    const handlemytripclick = (e) => {
+        if (!user) {
+            e.preventDefault();
+            alert('please login first to  view your trips!');
+            navigate('/login');
+        }
+    };
 
     // Track scroll position
     React.useEffect(() => {
@@ -81,8 +109,8 @@ const Navbar = () => {
                                 `group flex flex-col gap-0.5 text-sm font-medium transition-colors ${
                                     isActive ? "text-black" : "text-gray-600 hover:text-black"
                                 }`
-                            }
-                        >
+                            }>
+
                             {({ isActive }) => (
                                 <>
                                     {link.name}
@@ -95,6 +123,13 @@ const Navbar = () => {
                             )}
                         </NavLink>
                     ))}
+                    {(!user || user.role === 'client') && (
+                        <Link to='/mytrips' onClick={handlemytripclick}>My Trips</Link>
+                    )}
+
+                    {(user && user.role === 'owner') && (
+                        <Link to='/dashboard'>Dashboard</Link>
+                    )}
                 </div>
 
                 {/* Desktop Right */}
@@ -103,15 +138,25 @@ const Navbar = () => {
                         aria-label="Search"
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
                     >
-                        <SearchIcon />
+                        {/* <SearchIcon /> */}
                     </button>
-                    <button
-                        onClick={() => navigate("/my-bookings")}
-                        className="px-6 py-2 text-sm font-medium rounded-full bg-black text-white
-                        border border-black hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
-                    >
-                        My Bookings
-                    </button>
+
+                    {/* log in button for desktop */}
+                    {user ? (
+                        <button onClick={() => { handlelogout(); navigate("/login"); }}>
+                            Log out
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => {
+                                window.location.reload();
+                                navigate("/login");
+                            }}
+                            className="bg-black text-white px-8 py-2.5 rounded-full text-base cursor-pointer"
+                        >
+                            Log in
+                        </button>
+                    )}
                 </div>
 
                 {/* Mobile Buttons */}
@@ -120,13 +165,12 @@ const Navbar = () => {
                         aria-label="Search"
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                     >
-                        <SearchIcon />
+                        {/* <SearchIcon /> */}
                     </button>
                     <button
                         onClick={() => setIsMenuOpen(true)}
                         aria-label="Open menu"
-                        className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    >
+                        className="p-2 rounded-full hover:bg-gray-100 transition-colors">
                         <MenuIcon />
                     </button>
                 </div>
@@ -161,7 +205,7 @@ const Navbar = () => {
                     </Link>
                 ))}
 
-                <button
+                {/* <button
                     onClick={() => {
                         setIsMenuOpen(false);
                         navigate("/my-bookings");
@@ -169,7 +213,7 @@ const Navbar = () => {
                     className="bg-black text-white px-8 py-2.5 rounded-full text-base"
                 >
                     My Bookings
-                </button>
+                </button> */}
             </div>
         </>
     );

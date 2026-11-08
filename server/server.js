@@ -34,6 +34,11 @@ mongoose.connect(MONGO_URL)
 
 // User Schema
 const userschema = new mongoose.Schema({
+    fullname: {
+        type: String,
+        required: true,
+        unique: true
+    },
     email: {
         type: String,
         required: true,
@@ -42,6 +47,11 @@ const userschema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    }, 
+    role: {
+        type: String,
+        enum: ['client', 'owner'],
+        default: 'client'
     }
 });
 
@@ -50,11 +60,11 @@ const user = mongoose.model("user", userschema);
 // REGISTER ROUTE
 app.post('/api/auth/register', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { fullname, email, password } = req.body;
 
-        if (!email || !password) {
+        if (!fullname || !email || !password) {
             return res.status(400).json({
-                message: "Email and password are required"
+                message: "fullname, Email and password are required"
             });
         }
 
@@ -73,6 +83,7 @@ app.post('/api/auth/register', async (req, res) => {
 
         // Save user
         const newUser = new user({
+            fullname,
             email,
             password: hashedPass
         });
@@ -136,7 +147,8 @@ app.post('/api/auth/login', async (req, res) => {
             token,
             user: {
                 id: existingUser._id,
-                email: existingUser.email
+                email: existingUser.email,
+                role: existingUser.role 
             }
         });
 
