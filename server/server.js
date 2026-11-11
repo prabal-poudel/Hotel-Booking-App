@@ -1,10 +1,10 @@
-
 require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 const cors = require('cors');
 
 const app = express();
@@ -12,6 +12,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+// multer for handling file/image uploads
+const upload = multer ({dest: 'uploads/'});
 
 // Environment variables
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -30,6 +33,44 @@ mongoose.connect(MONGO_URL)
     })
     .catch(error => {
         console.error("Database connection error:", error.message);
+    });
+
+    const propertyInfoschema = new mongoose.Schema ({
+        name: String,
+        location: String,
+        price: Number,
+        photos: [String], //photo haru ko url/paths haru
+    });
+    const Property = mongoose.model('property', propertyInfoschema);
+
+    // post route for new property 
+    app.post('/api/properties', upload.array('photos', 5), async (req, res) => {
+    try {
+        const { name, location, price } = req.body;
+        const photoPaths = req.files.map(file => file.path);
+
+        const newProperty = new Property({
+        name,
+        location,
+        price,
+        photos: photoPaths,
+        });
+
+        await newProperty.save();
+        res.status(201).json({ message: 'Property saved successfully!', property: newProperty });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    });
+
+    // get route to fetch all properties 
+    app.get('/properties', async (req, res) => {
+        try {
+            const properties = await Property.find();
+            res.json(properties);
+        } catch (error) {
+            res.status(500).json({error: error.message});
+        }
     });
 
 // User Schema
