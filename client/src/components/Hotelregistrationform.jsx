@@ -6,13 +6,13 @@ const Hotelregistrationform = ({onClose}) => {
     e.preventDefault();
 
     // 1, gather data from the form 
-    const formdata  = new formdata();
+    const formdata  = new FormData();
     formdata.append('name', e.target.propertyname.value);
     formdata.append('location', e.target.propertylocation.value);
     formdata.append('price', e.target.propertyprice.value);
 
-    for (let i=0; i < e.target.propertyphoto.files.length; i++) {
-      formdata.append('photos', e.target.propertyphoto.value[i]);
+    for (let i=0; i < e.target.propertyPhotos.files.length; i++) {
+      formdata.append('photos', e.target.propertyPhotos.files[i]);
     }
 
 
@@ -50,7 +50,7 @@ const Hotelregistrationform = ({onClose}) => {
           <p className='text-gray-300 text-sm mt-2'>Share your space with travelers from around the world.</p>
         </div>
 
-        <form className="space-y-4">
+        <form onSubmit= {handlesubmit} className="space-y-4">
           <div>
             <label className='block font-medium text-gray-900 mb-1'>Property name</label>
             <input 

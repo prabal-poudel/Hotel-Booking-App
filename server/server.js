@@ -43,6 +43,8 @@ mongoose.connect(MONGO_URL)
     });
     const Property = mongoose.model('property', propertyInfoschema);
 
+    // add this for images publicity
+    app.use('/uploads', express.static('uploads'));
     // post route for new property 
     app.post('/api/properties', upload.array('photos', 5), async (req, res) => {
     try {
@@ -64,7 +66,7 @@ mongoose.connect(MONGO_URL)
     });
 
     // get route to fetch all properties 
-    app.get('/properties', async (req, res) => {
+    app.get('/api/properties', async (req, res) => {
         try {
             const properties = await Property.find();
             res.json(properties);
