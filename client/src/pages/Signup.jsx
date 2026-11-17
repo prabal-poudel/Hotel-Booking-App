@@ -1,4 +1,6 @@
+import { validationResult } from 'express-validator';
 import React, {useState} from 'react'
+import { Slide } from 'react-toastify';
  
 const Signup = () => {
     // sate to hold user input 
@@ -7,6 +9,7 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [role, setRole] = useState('');
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -19,7 +22,7 @@ const Signup = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 }, 
-                body: JSON.stringify({fullname, email, password,}),
+                body: JSON.stringify({fullname, email, password, role,}),
             });
 
             const data = await response.json();
@@ -69,6 +72,16 @@ const Signup = () => {
         placeholder='At least 8 characters' 
         className='w-full border border-black rounded-2xl p-2 mb-4'
             onChange={(e) => setPassword(e.target.value)} />
+            <p>Select a role as a client or a hotel owner.</p>
+            <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+            className='w-full border border-gray-700 rounded-2xl px-2 py-2 text-black'
+            >
+            <option value="client">Client</option>
+            <option value="owner">Hotel Owner</option>
+            </select>
         <button onClick={handleSignup} className='w-full bg-amber-50 border border-black rounded-2xl p-2 mt-2 hover:bg-green-600 cursor-pointer'>Create account</button>
         <p className='mt-3'>Already have an account? <a href='/login' className='text-emerald-600'>Log in</a></p>
     </div>

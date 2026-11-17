@@ -170,7 +170,7 @@ app.get('/api/properties/:id', async (req, res) => {
 // REGISTER ROUTE
 app.post('/api/auth/register', async (req, res) => {
     try {
-        const { fullname, email, password } = req.body;
+        const { fullname, email, password, role } = req.body;
 
         if (!fullname || !email || !password) {
             return res.status(400).json({
@@ -195,7 +195,8 @@ app.post('/api/auth/register', async (req, res) => {
         const newUser = new user({
             fullname,
             email,
-            password: hashedPass
+            password: hashedPass,
+            role
         });
 
         await newUser.save();
