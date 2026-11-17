@@ -1,6 +1,7 @@
 import React from 'react'
 import Hero from '../components/Hero'
 import HotelCard from '../components/HotelCard'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -19,7 +20,8 @@ const Home = () => {
             description: "Discover the heart of Nepal, where ancient temples, rich culture, historic landmarks, and vibrant city life come together.",
             img: "https://cdn.pixabay.com/photo/2014/11/15/23/29/fairytale-532850_1280.jpg",
             imgname: "kathmandu",
-            price: "NPR 1200" 
+            price: "NPR 1200",
+            link: "/hotelsearch"
             }}/>
 
           <HotelCard hotel={{
@@ -27,7 +29,8 @@ const Home = () => {
             description: "Experience the beauty of Nepal's paradise, surrounded by breathtaking mountains, peaceful lakes, stunning waterfalls, and unforgettable adventures.",
             img: "https://cdn.pixabay.com/photo/2022/03/20/15/40/nature-7081138_1280.jpg",
             imgname: "Pokhara img",
-            price: "NPR 1000"
+            price: "NPR 1000",
+            link: "/hotelsearch"
             }}/>
 
           <HotelCard hotel={{
@@ -35,7 +38,8 @@ const Home = () => {
             description: "Explore one of eastern Nepal's vibrant cities, known for its lively atmosphere, local culture, delicious food, and welcoming communities.",
             img: "https://cdn.pixabay.com/photo/2026/04/20/02/43/02-43-00-298_1280.jpg",
             imgname: "Biratnagar img",
-            price: "NPR 1100"
+            price: "NPR 1100",
+            link: "/hotelsearch"
             }}/>
 
           <HotelCard hotel={{
@@ -43,7 +47,8 @@ const Home = () => {
               description: "Explore the beautiful Chitwan National Park, wildlife, and lush green forests.",
               img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
               imgname: "Chitwan National Park",
-              price: "NPR 900"
+              price: "NPR 900",
+              link: "/hotelsearch"
           }}/>
 
           <HotelCard hotel={{
@@ -51,7 +56,8 @@ const Home = () => {
               description: "Visit the birthplace of Gautama Buddha and experience peace and spirituality.",
               img: "https://images.pexels.com/photos/32468667/pexels-photo-32468667.jpeg",
               imgname: "Lumbini",
-              price: "NPR 850"
+              price: "NPR 850",
+              link: "/hotelsearch"
           }}/>
 
           <HotelCard hotel={{
@@ -59,7 +65,8 @@ const Home = () => {
               description: "Discover the stunning Himalayan landscapes, mountains, and beautiful villages of Mustang.",
               img: "https://images.unsplash.com/photo-1768160686725-041f271eab72?auto=format&fit=crop&fm=jpg&q=80&w=1200",
               imgname: "Mustang",
-              price: "NPR 750"
+              price: "NPR 750",
+              link: "/hotelsearch"
           }}/>
           </div>
         </div>

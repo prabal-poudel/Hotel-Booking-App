@@ -17,10 +17,11 @@ const Hotelregistrationform = ({onClose}) => {
 
 
     try {
-      const response = await fetch('http://localhost:3000/api/properties', {
-        method: 'post',
-        body: formdata,
-      });
+    const response = await fetch('http://localhost:3000/api/properties', {
+    method: 'post',
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },  // <- ADD
+    body: formdata,
+    });
 
       const data = await response.json();
       if (response.ok) {
@@ -34,6 +35,8 @@ const Hotelregistrationform = ({onClose}) => {
     }
 
   }
+
+
 
   return (
     // <div className='flex justify-center items-center min-h-screen bg-gray-50'>

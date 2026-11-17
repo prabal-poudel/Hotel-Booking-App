@@ -13,7 +13,10 @@ const HotelCard = ({hotel}) => {
             <p>{hotel.description}</p>
             <div className='flex text-2xl justify-between items-center m-2 '>
             <p className='text-black font-bold'>{hotel.price}</p>
-            <a href='/' className='text-green-600 font-bold text-2xl'>View Stay</a>
+            <Link to={hotel.link || `/hotels/${hotel._id || hotel.id}`} 
+            className='text-green-600 font-bold text-2xl
+            state={{ hotel }}
+            '>View Stay</Link>
             </div>
         </div>
     </div>

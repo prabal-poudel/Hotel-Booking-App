@@ -8,6 +8,7 @@ import Mytrips from './pages/Mytrips'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Hoteldetails from './pages/Hoteldetails'
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
           <Route path='/dashboard' element={<Dashboard />}/>
           <Route path='/login' element={<Login />} />
+          <Route path='/hotels/:id' element={<Hoteldetails />} />
         </Routes>
       </div>
       <Footer />

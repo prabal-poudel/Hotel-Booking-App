@@ -37,12 +37,14 @@ const PropertyList = () => {
           hotel={{
             name: property.name,
             description: property.location,
+            _id: property._id,
             img:
               property.photos.length > 0
                 ? `${API_URL}/${property.photos[0].replace(/\\/g, "/")}`
                 : "https://via.placeholder.com/400x300?text=No+Image",
             imgname: property.name,
-            price: `NPR ${property.price}`,
+            // price: `NPR ${property.price}`,
+            price: property.price,
           }}
         />
       ))}
