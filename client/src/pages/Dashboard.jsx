@@ -33,9 +33,8 @@
 
 import React, { useState, useEffect } from 'react'
 import Hotelregistrationform from '../components/Hotelregistrationform'
-import dotenv from "dotenv";
 
-const API = 'process.env.api'
+const API = 'https://hotel-booking-app-x553.onrender.com/'
 
 const Dashboard = () => {
   const [isModelopen, setIsmodelopen] = useState(false)
