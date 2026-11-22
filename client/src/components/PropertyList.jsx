@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HotelCard from "./HotelCard";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://hotel-booking-app-x553.onrender.com/";
 
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);

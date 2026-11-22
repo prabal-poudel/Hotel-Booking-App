@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-const API = 'http://localhost:3000'
+const API = 'https://hotel-booking-app-x553.onrender.com/'
 
 const HotelDetails = () => {
   const { id } = useParams()          
