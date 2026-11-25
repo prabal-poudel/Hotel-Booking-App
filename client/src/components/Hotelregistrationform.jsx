@@ -17,7 +17,7 @@ const Hotelregistrationform = ({onClose}) => {
 
 
     try {
-    const response = await fetch('https://hotel-booking-app-x553.onrender.com//api/properties', {
+    const response = await fetch('https://hotel-booking-app-x553.onrender.com/api/properties', {
     method: 'post',
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },  // <- ADD
     body: formdata,
