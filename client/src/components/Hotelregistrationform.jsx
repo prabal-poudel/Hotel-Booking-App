@@ -28,7 +28,7 @@ const Hotelregistrationform = ({onClose}) => {
         alert('successfully created !');
         onClose();
       } else {
-        alert('error: ' + data.message);
+        alert('error: ' + (data.message || data.error));
       }
     } catch (err) {
       console.error('Submission failed: ', err);

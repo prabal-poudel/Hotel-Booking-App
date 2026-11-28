@@ -34,7 +34,7 @@
 import React, { useState, useEffect } from 'react'
 import Hotelregistrationform from '../components/Hotelregistrationform'
 
-const API = 'https://hotel-booking-app-x553.onrender.com/'
+const API = 'https://hotel-booking-app-x553.onrender.com'
 
 const Dashboard = () => {
   const [isModelopen, setIsmodelopen] = useState(false)
@@ -84,6 +84,12 @@ const Dashboard = () => {
 
   // load both when the dashboard opens
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || 'null')
+    if (!localStorage.getItem('token') || user?.role !== 'owner') {
+      alert('Please log in with an owner account.')
+      window.location.href = '/login'
+      return
+    }
     loadProperties()
     loadBookings()
   }, [])

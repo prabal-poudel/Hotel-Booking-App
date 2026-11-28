@@ -249,7 +249,7 @@ app.post('/api/auth/login', async (req, res) => {
         const token = jwt.sign(
             { userId: existingUser._id },
             JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '7d' }
         );
 
         // Send response
@@ -308,6 +308,15 @@ app.post('/api/bookings', verifytoken, async (req, res) => {
 
         const nights = Math.round((outDate - inDate) / (1000 * 60 * 60 * 24));
         const totalPrice = nights * property.price;
+        // block overlapping bookings for the same hotel
+        const clash = await Booking.findOne({
+            property: propertyId,
+            checkIn: { $lt: outDate },
+            checkOut: { $gt: inDate },
+        });
+        if (clash) {
+            return res.status(409).json({ message: 'This hotel is already booked for those dates.' });
+        }
 
         const booking = await Booking.create({
             user: req.user.userId,

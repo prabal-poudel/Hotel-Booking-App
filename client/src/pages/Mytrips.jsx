@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const API = 'https://hotel-booking-app-x553.onrender.com/'
+const API = 'https://hotel-booking-app-x553.onrender.com'
 
 const Mytrips = () => {
   const [trips, setTrips] = useState([])
